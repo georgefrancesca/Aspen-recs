@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patrick's Aspen Guide</title>
+  <style>
+    :root {
+      --snow: #f8f5ef;
+      --paper: rgba(255, 252, 247, 0.88);
+      --pine: #17342b;
+      --forest: #22493a;
+      --sage: #6f8c77;
+      --gold: #d9a43b;
+      --clay: #9f5a39;
+      --ink: #1e2320;
+      --shadow: 0 18px 40px rgba(23, 52, 43, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(244, 239, 230, 0.78), rgba(247, 243, 235, 0.86)),
+        url("./aspen-background.png") center / cover fixed no-repeat;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 24px auto 48px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      padding: 48px 28px 36px;
+      background:
+        linear-gradient(135deg, rgba(23, 52, 43, 0.92), rgba(34, 73, 58, 0.75)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+      color: #fff9f1;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -30% auto;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 164, 59, 0.38), transparent 68%);
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 7vw, 5.3rem);
+      line-height: 0.95;
+      font-weight: 500;
+    }
+
+    .hero p {
+      width: min(640px, 100%);
+      margin: 18px 0 0;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: rgba(255, 249, 241, 0.9);
+    }
+
+    .section {
+      margin-top: 26px;
+      padding: 28px;
+      border-radius: 28px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(34, 73, 58, 0.08);
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: 1.9rem;
+      color: var(--pine);
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      max-width: 760px;
+      line-height: 1.7;
+      color: #39443d;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(111, 140, 119, 0.18);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.25rem;
+      color: var(--forest);
+    }
+
+    .card p {
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .food-card {
+      padding: 22px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 245, 239, 0.96));
+      border-top: 4px solid var(--gold);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .food-card h3 {
+      margin: 0 0 10px;
+      color: var(--clay);
+      font-size: 1.2rem;
+    }
+
+    .card h3 a,
+    .food-card h3 a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .card h3 a:hover,
+    .food-card h3 a:hover,
+    .card h3 a:focus-visible,
+    .food-card h3 a:focus-visible {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 0.18em;
+    }
+
+    .food-card p {
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    .section-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .section-nav a {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 252, 247, 0.78);
+      color: var(--pine);
+      text-decoration: none;
+      border: 1px solid rgba(34, 73, 58, 0.12);
+      box-shadow: 0 8px 18px rgba(23, 52, 43, 0.08);
+    }
+
+    .section-nav a:hover {
+      background: rgba(255, 252, 247, 0.94);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(34, 73, 58, 0.1);
+    }
+
+    .step:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .time {
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage);
+    }
+
+    .step h3 {
+      margin: 0 0 6px;
+      color: var(--pine);
+      font-size: 1.12rem;
+    }
+
+    .step p {
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 860px) {
+      .cards,
+      .food-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>Patrick's Aspen Guide</h1>
+      <nav class="section-nav" aria-label="Aspen guide sections">
+        <a href="#food-drink">Food + Drink</a>
+        <a href="#adventure">Adventure</a>
+        <a href="#nightlife">Nightlife</a>
+        <a href="#happy-hours">Happy Hours</a>
+        <a href="#culture">Culture</a>
+        <a href="#events">Signature Events</a>
+        <a href="#perfect-day">The Perfect Aspen Day</a>
+      </nav>
+    </section>
+
+    <section class="section" id="food-drink">
+      <h2 class="section-title">Food + Drink</h2>
+      <p class="intro">
+        The food side of Aspen works best as a shortlist. These are the actual names from the guide,
+        grouped so it feels more like recs and less like instructions.
+      </p>
+      <div class="food-grid">
+        <article class="food-card">
+          <h3><a href="https://www.unravel.coffee/pages/unravel-coffee-and-bar-aspen" target="_blank" rel="noreferrer noopener">Unravel Coffee</a></h3>
+          <p>
+            A great coffee move with comfy seating and an easy morning energy if you want something casual
+            but still very Aspen.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.swedishhillbakery.com/aspen" target="_blank" rel="noreferrer noopener">Swedish Hill Bakery</a></h3>
+          <p>
+            The rooftop cafe at the Aspen Art Museum. Good coffee, pastries, and one of the prettier
+            low-key views in town.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.santambroeus.com/" target="_blank" rel="noreferrer noopener">Sant Ambroeus Coffee Shop</a></h3>
+          <p>
+            The polished coffee option if you want espresso and pastries with a more refined, Italian feel.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.petittrois.com/aspen" target="_blank" rel="noreferrer noopener">Petit Trois</a></h3>
+          <p>
+            A chic French lunch and one of the better midday recs if you want something stylish and social.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.aspenwhitehouse.com/" target="_blank" rel="noreferrer noopener">White House Tavern</a></h3>
+          <p>
+            Great sandwiches, burgers, salads, and cocktails in a historic cottage. Hard to go wrong here.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.meatandcheeseaspen.com/" target="_blank" rel="noreferrer noopener">Meat &amp; Cheese</a></h3>
+          <p>
+            Good for lunch, wine, cocktails, and a market-style atmosphere that still feels very elevated.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://woodycreektavern.com/" target="_blank" rel="noreferrer noopener">Woody Creek Tavern</a></h3>
+          <p>
+            One of the best recs if you want lunch to be part of a bigger bike day on the Rio Grande Trail.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.matsuhisarestaurants.com/aspen/" target="_blank" rel="noreferrer noopener">Matsuhisa</a></h3>
+          <p>
+            The classic high-end Aspen dinner move. If you want a reservation that feels like a real night
+            out, this is it.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.catchrestaurants.com/location/catch-steak-aspen" target="_blank" rel="noreferrer noopener">Catch Steak</a></h3>
+          <p>
+            Best if the group wants steakhouse energy with a more modern, louder, scene-y feel.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.bosqaspen.com/" target="_blank" rel="noreferrer noopener">BOSQ</a></h3>
+          <p>
+            The Michelin-star tasting-menu option. This is the splurge dinner when the meal itself is the plan.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.casatualife.com/" target="_blank" rel="noreferrer noopener">Casa Tua</a></h3>
+          <p>
+            A polished Aspen favorite with seasonal ingredients and a private-club atmosphere upstairs.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.monarchaspen.com/" target="_blank" rel="noreferrer noopener">The Monarch</a></h3>
+          <p>
+            A classic steakhouse with martinis, moody lighting, and more old-school Aspen energy.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3>New York Pizza</h3>
+          <p>
+            The easy casual option if you want a slice and a beer instead of turning dinner into a whole event.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="adventure">
+      <h2 class="section-title">Adventure</h2>
+      <p class="intro">
+        These are the activity and outfitter recs from the guide that are most worth actually building
+        a day around.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>Biking</h3>
+          <p>
+            One of the strongest summer recs overall. Road bike to the Maroon Bells or Castle Creek, and
+            look at Silver City Cycle or Ride Aspen if you need gear or help.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Hiking</h3>
+          <p>
+            Ajax, Highlands, Buttermilk, and Snowmass all give you a different version of Aspen scenery,
+            so this is easy to tailor by mood and energy.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Fishing</h3>
+          <p>
+            Aspen Outfitting Company is the guide’s go-to if you want guided fly fishing in the valley.
+          </p>
+        </article>
+        <article class="card">
+          <h3><a href="https://www.tlazy7.com/" target="_blank" rel="noreferrer noopener">T-Lazy-7 Ranch</a></h3>
+          <p>
+            A strong pick for horseback rides, private fishing ponds, and a more immersive Maroon Bells-area day.
+          </p>
+        </article>
+        <article class="card">
+          <h3><a href="https://www.blazingadventures.com/" target="_blank" rel="noreferrer noopener">Aspen Blazing Adventures</a></h3>
+          <p>
+            The broadest operator in the guide for rafting, kayaking, jeeping, hiking, Maroon Bells, or
+            a custom adventure day.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Adventure Outfitters</h3>
+          <p>
+            Four Mountain Sports, Aspen Velo, and Ute City Cycles cover bikes. Taylor Creek Fly Shop,
+            Aspen Outfitting Company, and Blazing Adventures cover fishing and rafting.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="nightlife">
+      <h2 class="section-title">Nightlife</h2>
+      <p class="intro">
+        Aspen nightlife makes more sense when it’s separated by vibe. These are the guide’s actual
+        go-out recs.
+      </p>
+      <div class="food-grid">
+        <article class="food-card">
+          <h3><a href="https://caribouclub.com/" target="_blank" rel="noreferrer noopener">Caribou Club</a></h3>
+          <p>
+            The private-members-club option for dinner, drinks, and dancing if you have access.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3>GALA</h3>
+          <p>
+            The luxury nightclub move if the goal is a more exclusive, high-energy night.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.silvercityaspen.com/" target="_blank" rel="noreferrer noopener">Silver City</a></h3>
+          <p>
+            More local and more relaxed, with karaoke, a pool room, and live music.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.aspenbrewingco.com/" target="_blank" rel="noreferrer noopener">Aspen Brewing Company</a></h3>
+          <p>
+            Great for patio beers, a casual start to the night, and a little less formality.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://bellyupaspen.com/" target="_blank" rel="noreferrer noopener">Belly Up Aspen</a></h3>
+          <p>
+            The best rec for live music. Always worth checking first to see who’s playing.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.hoochaspen.com/" target="_blank" rel="noreferrer noopener">Hooch</a> + <a href="https://thesterlingaspen.com/" target="_blank" rel="noreferrer noopener">Sterling</a></h3>
+          <p>
+            Start with cocktails at Hooch, then move to Sterling next door if you want a clubbier finish.
+          </p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://aubergeresorts.com/hoteljerome/dine/the-living-room/" target="_blank" rel="noreferrer noopener">The Living Room</a></h3>
+          <p>
+            The Hotel Jerome bar is the move if you want refined cocktails and a more classic Aspen room.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="happy-hours">
+      <h2 class="section-title">Happy Hours</h2>
+      <p class="intro">
+        These are the specific after-3pm spots and time windows the guide calls out directly.
+      </p>
+      <div class="food-grid">
+        <article class="food-card">
+          <h3><a href="https://www.meatandcheeseaspen.com/" target="_blank" rel="noreferrer noopener">Meat &amp; Cheese</a></h3>
+          <p>2:30pm to 5:00pm daily.</p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://www.clarksoysterbar.com/locations/aspen" target="_blank" rel="noreferrer noopener">Clarks Oyster Bar</a></h3>
+          <p>After 3:00pm daily.</p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://jingrestaurant.com/locations/colorado/aspen/" target="_blank" rel="noreferrer noopener">Jing</a></h3>
+          <p>4:30pm to 6:00pm on weekdays.</p>
+        </article>
+        <article class="food-card">
+          <h3>Las Montanas</h3>
+          <p>After 3:00pm daily.</p>
+        </article>
+        <article class="food-card">
+          <h3>Mi Chola</h3>
+          <p>4:00pm to 6:00pm daily.</p>
+        </article>
+        <article class="food-card">
+          <h3>Zig Zag</h3>
+          <p>3:00pm to 5:00pm daily.</p>
+        </article>
+        <article class="food-card">
+          <h3><a href="https://frenchalpinebistro.com/" target="_blank" rel="noreferrer noopener">French Alpine Bistro</a></h3>
+          <p>3:00pm to 6:00pm daily.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="culture">
+      <h2 class="section-title">Culture</h2>
+      <p class="intro">
+        These are the cultural stops from the guide when you want something more Aspen than just another meal.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3><a href="https://www.aspenartmuseum.org/" target="_blank" rel="noreferrer noopener">Aspen Art Museum</a></h3>
+          <p>A strong default culture stop, especially if you also want to pair it with Swedish Hill.</p>
+        </article>
+        <article class="card">
+          <h3><a href="https://www.baldwingallery.com/" target="_blank" rel="noreferrer noopener">Baldwin Gallery</a></h3>
+          <p>Good for a more design-forward gallery stop in town.</p>
+        </article>
+        <article class="card">
+          <h3><a href="https://wheeleroperahouse.com/" target="_blank" rel="noreferrer noopener">Wheeler Opera House</a></h3>
+          <p>A local landmark and the obvious rec if you want a performance or a classic Aspen venue.</p>
+        </article>
+        <article class="card">
+          <h3><a href="https://www.aspen.gov/530/John-Denver-Sanctuary" target="_blank" rel="noreferrer noopener">John Denver Sanctuary</a></h3>
+          <p>One of the easiest iconic stops if you want something beautiful and low-effort.</p>
+        </article>
+        <article class="card">
+          <h3><a href="https://aspenhistory.org/plan-your-visit/wheeler-stallard-house-museum/" target="_blank" rel="noreferrer noopener">Wheeler-Stallard Museum</a></h3>
+          <p>A good history-focused stop that gives the day a little more depth.</p>
+        </article>
+        <article class="card">
+          <h3><a href="https://www.snowmassrodeo.org/" target="_blank" rel="noreferrer noopener">Snowmass Rodeo</a></h3>
+          <p>The guide includes this as a summer outing with more local-event character.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="events">
+      <h2 class="section-title">Signature Events</h2>
+      <p class="intro">
+        If a trip lines up with one of these, let it set the whole tone. These are the big summer anchors.
+      </p>
+      <div class="cards">
+        <article class="card">
+          <h3>Aspen Ideas Festival</h3>
+          <p>
+            Late June through early July at the Aspen Institute. The best event to build around if you’re
+            into politics, business, media, or culture.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Jazz Aspen Snowmass</h3>
+          <p>
+            A summer-long music anchor with intimate sets and the bigger Labor Day weekend festival.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Aspen Music Festival &amp; School</h3>
+          <p>
+            The classical-music option, running late June through mid-August with a huge range of performances.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Food &amp; Wine Classic</h3>
+          <p>
+            Mid-June and probably the biggest food-focused flex weekend in Aspen. If dining is the priority,
+            this is the one.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="perfect-day">
+      <h2 class="section-title">The Perfect Aspen Day</h2>
+      <p class="intro">
+        If you want one version that feels very Aspen without trying to cram in everything, this is the move.
+      </p>
+      <div class="timeline">
+        <article class="step">
+          <div class="time">Morning</div>
+          <div>
+            <h3>Coffee + Aspen Saturday Market</h3>
+            <p>
+              Start at Unravel Coffee or Swedish Hill, then head to the Aspen Farmer’s Market if it’s
+              Saturday. It’s one of the most fun guide-approved ways to start the day.
+            </p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="time">Midday</div>
+          <div>
+            <h3>One Big Outdoor Plan</h3>
+            <p>
+              Pick one of the real anchors: biking, hiking, paragliding, gondola up Aspen Mountain, or a
+              bigger booked experience through Blazing Adventures or T-Lazy-7.
+            </p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="time">Afternoon</div>
+          <div>
+            <h3>Lunch + Treat + Happy Hour</h3>
+            <p>
+              Do lunch at the Sundeck, Petit Trois, or White House Tavern, stop at Paradise Bakery, then
+              slide into Clarks or French Alpine Bistro.
+            </p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="time">Night</div>
+          <div>
+            <h3>Dinner + One Strong Night Move</h3>
+            <p>
+              Book Matsuhisa, Casa Tua, BOSQ, or The Monarch, then choose your finish: Belly Up for music,
+              The Living Room for cocktails, or Hooch into Sterling for more energy.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
